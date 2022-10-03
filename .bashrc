@@ -136,6 +136,9 @@ function pdfcompress() {
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1 
 
+#if dolphin is in use
+export QT_QPA_PLATFORMTHEME=qt5ct
+
 
 
 #language shortcut
