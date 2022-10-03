@@ -7,6 +7,7 @@ set ruler
 set cmdheight=2
 set showcmd             "show last command
 set encoding=utf8
+set clipboard=unnamedplus
 
 set incsearch           "highlight search results as you type
 set hlsearch            "highlight search results
