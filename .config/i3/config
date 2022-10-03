@@ -1,5 +1,5 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
-exec --no-startup-id "xrandr --output HDMI-A-0 --primary"
+§exec --no-startup-id "xrandr --output HDMI-A-0 --primary"
 
 ### Display Setup ####
 # display order and workspace order
@@ -9,9 +9,8 @@ exec --no-startup-id "xrandr --output HDMI-A-0 --primary"
 #bindsym $mod+m exec "$HOME/.config/i3/display_activation.sh"
 
 # xfce4Panel instead of i3bar
-#exec --no-startup-id xfsettingsd
-#exec --no-startup-id xfce4-panel --disable-wm-check
-
+exec --no-startup-id xfsettingsd
+exec --no-startup-id xfce4-panel --disable-wm-check
 exec --no-startup-id nm-applet
 
 # Switch keyboard layout between us/de
@@ -20,18 +19,18 @@ exec "setxkbmap -layout us,de"
 exec "setxkbmap -option 'grp:shifts_toggle' us,de"
 
 # Start filemanager with super+e
-#bindsym $mod+e exec thunar
-#bindsym $mod+e exec nautilus
+#bindsym $mod+e exec --no-startup-id thunar
+bindsym $mod+e exec --no-startup-id dolphin
 
 # Screenlocker
-bindsym $mod+l exec i3lock -c 002b36 -e -f
-#bindsym $mod+l exec dm-tool lock
+#bindsym $mod+l exec --no-startup-id i3lock -c 002b36 -e -f
+bindsym $mod+l exec --no-startup-id dm-tool lock
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 
 # enable redshift
-exec --no-startup-id redshift
+#exec --no-startup-id redshift
 
 # Windows key as Mod
 set $mod Mod4
@@ -41,12 +40,12 @@ set $mod Mod4
 font pango:Source Code Pro Light 10
 #font pango:DejaVu Sans Mono 9
 
-
 # Use pactl to adjust volume in PulseAudio.
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-#fix audio level not refreshing
+
+#fix audio level not refreshing with i3status
 #set $refresh_i3status killall -SIGUSR1 i3status
 #bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
 #bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
@@ -54,13 +53,13 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 #bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Media player controls
-#bindsym XF86AudioPlay exec playerctl play
-#bindsym XF86AudioPause exec playerctl pause
-#bindsym XF86AudioNext exec playerctl next
-#bindsym XF86AudioPrev exec playerctl previous
+#bindsym XF86AudioPlay exec --no-startup-id playerctl play
+#bindsym XF86AudioPause exec --no-startup-id playerctl pause
+#bindsym XF86AudioNext exec --no-startup-id playerctl next
+#bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 #Toggle Touchpad
-#bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
+#bindsym XF86TouchpadToggle exec --no-startup-id /some/path/toggletouchpad.sh
 
 ##!/bin/bash
 #if synclient -l | grep "TouchpadOff .*=.*0" ; then
@@ -73,19 +72,19 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+q kill
 
 #Program launcher
-bindsym $mod+d exec rofi -show drun
+bindsym $mod+d exec --no-startup-id rofi -show drun
 
 # change focus
-#bindsym $mod+j focus left
-#bindsym $mod+k focus down
-#bindsym $mod+l focus up
-#bindsym $mod+semicolon focus right
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -116,8 +115,8 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+#bindsym $mod+w layout tabbed
+bindsym $mod+w layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -172,7 +171,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -202,13 +201,13 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
-bar {
-    output primary
-    tray_output primary
-    status_command i3status --config ~/.config/i3/i3status.conf
-    font pango:Source Code Pro Regular 9
-}
+#bar {
+#    output primary
+#    tray_output primary
+#    status_command i3status --config ~/.config/i3/i3status.conf
+#    font pango:Source Code Pro Regular 9
+#}
 
-bar {
-    output nonprimary
-}
+#bar {
+#    output nonprimary
+#}
