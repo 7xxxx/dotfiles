@@ -15,8 +15,9 @@ exec --no-startup-id "xrandr --output HDMI-A-0 --primary"
 exec --no-startup-id nm-applet
 
 # Switch keyboard layout between us/de
+#https://gist.github.com/illucent/beaf4a8c6a68bd4f5670f1c6f0c8d67e
 exec "setxkbmap -layout us,de"
-exec "setxkbmap -option 'grp:shift_shift_toggle'"
+exec "setxkbmap -option 'grp:shifts_toggle' us,de"
 
 # Start filemanager with super+e
 #bindsym $mod+e exec thunar
@@ -42,11 +43,31 @@ font pango:Source Code Pro Light 10
 
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+#fix audio level not refreshing
+#set $refresh_i3status killall -SIGUSR1 i3status
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+#bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Media player controls
+#bindsym XF86AudioPlay exec playerctl play
+#bindsym XF86AudioPause exec playerctl pause
+#bindsym XF86AudioNext exec playerctl next
+#bindsym XF86AudioPrev exec playerctl previous
+
+#Toggle Touchpad
+#bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
+
+##!/bin/bash
+#if synclient -l | grep "TouchpadOff .*=.*0" ; then
+#    synclient TouchpadOff=1 ;
+#else
+#    synclient TouchpadOff=0 ;
+#fi
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
